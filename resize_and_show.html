@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    
+<head>
+    <meta charset="utf-8">
+    <title>Hello OpenCV.js</title>
+</head>
+
+<body>
+    <h2>Hello OpenCV.js</h2>
+    <p id="status">OpenCV.js is loading...</p>
+    <div>
+        <div class="inputoutput">
+            <img id="imageSrc" alt="No Image" />
+            <div class="caption">imageSrc <input type="file" id="fileInput" name="file" /></div>
+          </div>
+          <div class="inputoutput">
+            <canvas id="canvasOutput" ></canvas>
+            <div class="caption">canvasOutput</div>  <!-- This is needed to show the cv-mat on the screen! -->
+          </div>
+    </div>
+    <script type="text/javascript">
+        let imgElement = document.getElementById("imageSrc")
+        let inputElement = document.getElementById("fileInput");
+        inputElement.addEventListener("change", (e) => {
+            imgElement.src = URL.createObjectURL(e.target.files[0]);
+        }, false);
+        
+        imgElement.onload = function() {
+            let mat = cv.imread(imgElement);
+            console.log("pooya");
+            let resized_mat = new cv.Mat();
+            let size = new cv.Size(300, 300);
+            console.log(size);
+            cv.resize(mat, resized_mat, size, 0, 0, cv.INTER_AREA);
+            cv.imshow('canvasOutput', resized_mat);
+            mat.delete();
+        };
+        
+        // This is activated after opencv is loaded!
+        function onOpenCvReady() {
+            document.getElementById('status').innerHTML = 'OpenCV.js is ready.';
+        };
+    </script>
+    <script async src="opencv.js" onload="onOpenCvReady();" type="text/javascript"></script> 
+</body>
+
+</html>
