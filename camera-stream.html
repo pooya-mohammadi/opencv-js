@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Video Streaming Opencv-JS</title>
+    </head>
+    <body>
+        <h1>OpenCV Camera</h1>
+        <div>
+            <button id="actionBtn">Start</button>
+        </div>
+        <video id="video" width="300" height="225"></video>
+        <canvas id="canvasOutput"></canvas>
+        <script async src="opencv.js" type="text/javascript" onload="onCvLoaded();"></script>
+        <script>
+            function onCvLoaded(){
+                console.log('cv', cv);
+                cv.onRuntimeInitialized = onReady;
+            }
+            const video = document.getElementById('video');
+            const actionBtn = document.getElementById('actionBtn');
+            const width = 300;
+            const height = 225;
+            const FPS = 30;
+            let stream = false;
+            function onReady() {
+                let src;
+                let dst;
+                const cap = new cv.VideoCapture(video);
+                console.log("cursor is hear!");
+            }
+
+        </script>
+    </body>
+</html>
